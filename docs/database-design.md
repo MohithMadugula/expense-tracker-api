@@ -28,20 +28,29 @@ CATEGORY
 | updated_at | TIMESTAMP | NOT NULL |
 
 
-                USERS
-                  │
-      ┌───────────┼────────────┐
-      │           │            │
-      │           │            │
-    CATEGORIES  EXPENSES     INCOMES
-      │           │             │
-      │           │             │
-      └────category_id──────────┘
-
-              USERS
-                │
-                │
-              BUDGETS
+                         USERS
+                     +-----------+
+                     | user_id   |
+                     +-----------+
+                           |
+        +------------------+------------------+
+        |                  |                  |
+        |                  |                  |
+        |                  |                  |
+     +---------------+   +---------------+   +---------------+
+    |  CATEGORIES   |   |   EXPENSES    |   |    INCOME     |
+    +---------------+   +---------------+   +---------------+
+    | category_id   |<--| category_id   |   | income_id     |
+    | user_id       |   | user_id       |   | user_id       |
+    +---------------+   +---------------+   +---------------+
+        |
+        |
+    +---------------+
+    |    BUDGETS    |
+    +---------------+
+    | budget_id     |
+    | user_id       |
+    +---------------+
 
 
 
@@ -57,17 +66,17 @@ The database follows a relational design where each user owns their own categori
 
 # Entity Relationship
 
-User
-│
-├── Categories
-│
-├── Expenses
-│     │
-│     └── Category
-│
-├── Income
-│
-└── Budgets
+    User
+    │
+    ├── Categories
+    │
+    ├── Expenses
+    │     │
+    │     └── Category
+    │
+    ├── Income
+    │
+    └── Budgets
 
 ---
 
